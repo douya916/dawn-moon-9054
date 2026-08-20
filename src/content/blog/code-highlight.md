@@ -11,8 +11,8 @@ author: 大可
 ## 引入 highlight.js
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github.min.css">
-<script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/highlight.js/styles/github.min.css">
+<script src="https://fastly.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
 <script>hljs.highlightAll();</script>
 ```
 

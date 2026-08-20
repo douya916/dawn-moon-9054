@@ -54,15 +54,14 @@
 ## 3. 字体规范
 
 ### 3.1 字体栈（已在 Tailwind 定义）
-- **正文 sans**：`"Noto Sans SC" → "PingFang SC" → "Microsoft YaHei" → system-ui → sans-serif`
-- **标题 serif**：`"Noto Serif SC" → "Songti SC" → "SimSun" → Georgia → serif`（h1–h6 默认套用）
-- **代码 mono**：`"JetBrains Mono" → Menlo → Monaco → monospace`
+- **正文 sans**：`"OPPO Sans" → "PingFang SC" → "Microsoft YaHei" → system-ui → sans-serif`
+- **标题 serif**：`"OPPO Sans" → "Songti SC" → "SimSun" → Georgia → serif`（h1–h6 默认套用，统一为 OPPO Sans 风格）
+- **代码 mono**：`ui-monospace → SFMono-Regular → Menlo → Monaco → Consolas → monospace`（系统等宽，零外部依赖）
 
 ### 3.2 加载方式
-通过 Google Fonts `@import` 在 `global.css` 顶部加载：
-`Noto Sans SC (300/400/500/700/900)`、`Noto Serif SC (400/600/700/900)`、`JetBrains Mono (400/500/700)`，`display=swap`。
+OPPO Sans 以 **本地托管** 方式引入：字体文件置于 `public/fonts/OPPOSans-Medium.woff2`，在 `global.css` 顶部用 `@font-face` 声明（`font-display: swap`），不再依赖任何外部字体 CDN。
 
-> **约束**：默认只使用上述三套字体。新增字体需评估中文覆盖与加载体积，不得引入未声明的中文字体。
+> **约束**：默认仅使用 OPPO Sans（本地）+ 系统回退字体栈。严禁重新引入 Google Fonts / 任意国外字体 CDN 的 `@import` 或 `<link>`，避免国内访问超时阻塞渲染。新增字体须评估中文覆盖与体积。
 
 ---
 
