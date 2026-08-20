@@ -1,8 +1,17 @@
-/* 本地托管的 OPPO Sans（官方 Medium 字重 woff2），替代 Google Fonts，避免国内访问超时阻塞渲染 */
+/* 本地托管的 OPPO Sans（官方 woff2），替代 Google Fonts，避免国内访问超时阻塞渲染。
+   仅官方 CDN 提供 Regular / Medium 两字重；其余字重由浏览器就近从 Medium 合成加粗。 */
+@font-face {
+  font-family: 'OPPO Sans';
+  src: url('/fonts/OPPOSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'OPPO Sans';
   src: url('/fonts/OPPOSans-Medium.woff2') format('woff2');
-  font-weight: 100 900; /* 单字重文件覆盖全部字重范围，浏览器按需合成粗细 */
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }

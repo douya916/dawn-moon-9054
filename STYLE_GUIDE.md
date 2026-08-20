@@ -59,7 +59,11 @@
 - **代码 mono**：`ui-monospace → SFMono-Regular → Menlo → Monaco → Consolas → monospace`（系统等宽，零外部依赖）
 
 ### 3.2 加载方式
-OPPO Sans 以 **本地托管** 方式引入：字体文件置于 `public/fonts/OPPOSans-Medium.woff2`，在 `global.css` 顶部用 `@font-face` 声明（`font-display: swap`），不再依赖任何外部字体 CDN。
+OPPO Sans 以 **本地托管** 方式引入，字体文件置于 `public/fonts/`，在 `global.css` 顶部用 `@font-face` 声明（`font-display: swap`），不再依赖任何外部字体 CDN：
+- `OPPOSans-Regular.woff2` → `font-weight: 400`（正文默认）
+- `OPPOSans-Medium.woff2` → `font-weight: 500`（强调/中等粗细）
+
+> 官方 CDN 仅提供 Regular / Medium 两字重；更粗的字重（如 700）由浏览器就近从 Medium 合成加粗。若后续获得 Bold/Heavy 字重文件，按同样格式补 `@font-face` 即可。
 
 > **约束**：默认仅使用 OPPO Sans（本地）+ 系统回退字体栈。严禁重新引入 Google Fonts / 任意国外字体 CDN 的 `@import` 或 `<link>`，避免国内访问超时阻塞渲染。新增字体须评估中文覆盖与体积。
 
