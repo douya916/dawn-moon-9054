@@ -2,119 +2,86 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import '@/styles/global.css';
+import { SITE } from '@/lib/blog';
+
+const skills = ['前端开发', 'TypeScript', 'Astro / Nuxt', 'UI 设计', '摄影', '手冲咖啡'];
+const timeline = [
+  { year: '2019', text: '购买人生第一款主题 B2，从此一发不可收拾，正式踏上网站美化折腾之路。' },
+  { year: '每一年', text: '都在 B2 主题上做子主题定制与美化，每年都有新学到的视觉技巧和实现细节。' },
+  { year: '现在', text: '热衷于折腾 B2 主题的子主题美化，把平淡的页面改造成自己喜欢的样子，并把心得记录在这里。' },
+];
 ---
 
-<BaseLayout title="About - ESA Pages" description="Learn more about ESA Pages and our mission to make web deployment faster and easier.">
+<BaseLayout title="关于" description={`关于 ${SITE.name} 与博主 ${SITE.author} 的一切。`}>
   <Header />
-  <main>
-    <!-- Hero Section -->
-    <section class="pt-32 pb-16 bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-          About <span class="gradient-text">ESA Pages</span>
-        </h1>
-        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          We're on a mission to make web deployment accessible, fast, and reliable for developers everywhere.
+
+  <main class="container-blog py-12 sm:py-16">
+    <div class="mx-auto max-w-3xl">
+      <a href="/" class="text-sm text-slate-500 transition-colors hover:text-primary-600">← 返回首页</a>
+
+      <!-- 头部 -->
+      <div class="mt-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+        <img
+          src="/touxiang.png"
+          alt={SITE.author}
+          class="h-24 w-24 shrink-0 rounded-3xl object-cover shadow-lg"
+          width="96"
+          height="96"
+          loading="lazy"
+          decoding="async"
+        />
+        <div>
+          <h1 class="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">{SITE.author}</h1>
+          <p class="mt-2 text-slate-500">子主题玩家 · 网站美化爱好者</p>
+        </div>
+      </div>
+
+      <!-- 简介 -->
+      <div class="prose prose-slate mt-10 max-w-none dark:prose-invert">
+        <p>
+          你好，欢迎来到 {SITE.name}。我是 {SITE.author}，一个沉迷于子主题与网站美化的折腾党。
+          比起从零造轮子，我更享受在一套成熟主题上反复打磨视觉细节，把平淡的页面改造成自己喜欢的样子。
+        </p>
+        <p>
+          这个博客是我分享折腾成果的地方——既有主题定制与界面美化的实战笔记，也有折腾路上的踩坑与心得。
+          如果你也对「把网站弄得更好看」这件事感兴趣，欢迎通过邮件或 B 站和我交流。
         </p>
       </div>
-    </section>
 
-    <!-- Story Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="prose prose-lg mx-auto">
-          <h2 class="text-3xl font-bold text-gray-900 mb-8">Our Story</h2>
-          <p class="text-gray-600 mb-6">
-            ESA Pages was born from frustration with complex deployment processes that slowed down development teams. 
-            We believed there had to be a better way – a way that would let developers focus on building great experiences 
-            rather than wrestling with infrastructure.
-          </p>
-          <p class="text-gray-600 mb-6">
-            Today, we serve thousands of developers worldwide, providing them with lightning-fast deployments, 
-            global CDN distribution, and the reliability they need to ship with confidence.
-          </p>
-        </div>
+      <!-- 技能 -->
+      <h2 class="section-title mt-12 text-xl">我关注的领域</h2>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {
+          skills.map((s) => (
+            <span class="chip bg-primary-50 text-primary-700 ring-1 ring-primary-100 dark:bg-primary-500/10 dark:text-primary-300 dark:ring-primary-500/20">
+              {s}
+            </span>
+          ))
+        }
       </div>
-    </section>
 
-    <!-- Values Section -->
-    <section class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
-          <p class="text-xl text-gray-600">The principles that guide everything we do</p>
-        </div>
-        
-        <div class="grid gap-8 md:grid-cols-3">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-blue-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Speed First</h3>
-            <p class="text-gray-600">Every feature we build is designed with performance in mind. Fast deployments, fast sites, fast support.</p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-primary-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Reliability</h3>
-            <p class="text-gray-600">Your sites deserve 99.95% uptime. We've built our infrastructure to deliver on that promise.</p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white mx-auto mb-4">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Developer Love</h3>
-            <p class="text-gray-600">We're developers too. We build tools that we'd want to use every day.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <!-- 时间线 -->
+      <h2 class="section-title mt-12 text-xl">一些轨迹</h2>
+      <ul class="mt-6 space-y-6 border-l-2 border-slate-200 pl-6 dark:border-white/10">
+        {
+          timeline.map((t) => (
+            <li class="relative">
+              <span class="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-primary-500 ring-4 ring-primary-100 dark:ring-primary-500/20"></span>
+              <div class="text-sm font-semibold text-primary-600 dark:text-primary-400">{t.year}</div>
+              <div class="mt-1 text-slate-600 dark:text-slate-300">{t.text}</div>
+            </li>
+          ))
+        }
+      </ul>
 
-    <!-- Team Section -->
-    <section class="py-16 bg-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet the Team</h2>
-          <p class="text-xl text-gray-600">The people behind ESA Pages</p>
-        </div>
-        
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div class="text-center">
-            <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-              JD
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900">Jane Doe</h3>
-            <p class="text-gray-600">Co-founder & CEO</p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-primary-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-              JS
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900">John Smith</h3>
-            <p class="text-gray-600">Co-founder & CTO</p>
-          </div>
-          
-          <div class="text-center">
-            <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-              AB
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900">Alice Brown</h3>
-            <p class="text-gray-600">Head of Engineering</p>
-          </div>
-        </div>
+      <!-- 联系 -->
+      <div class="mt-12 rounded-2xl bg-slate-100 p-6 text-center dark:bg-white/5">
+        <h2 class="section-title text-xl">想和我聊聊？</h2>
+        <p class="mt-2 text-slate-500">无论是技术交流，还是单纯打个招呼，都欢迎来信。</p>
+        <a href="mailto:bber_cn@qq.com" class="btn-primary mt-4 px-6 py-3">发送邮件</a>
       </div>
-    </section>
+    </div>
   </main>
+
   <Footer />
 </BaseLayout>

@@ -1,127 +1,126 @@
 ---
-// Footer component
+import { SITE, BEIAN, getCategories } from '@/lib/blog';
+
 const currentYear = new Date().getFullYear();
+const categories = await getCategories();
 
-interface FooterLink {
-  name: string;
-  href: string;
-}
+const navLinks = [
+  { name: '首页', href: '/' },
+  { name: '文章', href: '/#articles' },
+  { name: '文档', href: '/docs' },
+  { name: '分类', href: '/#categories' },
+  { name: '友链', href: '/#friends' },
+  { name: '关于', href: '/about' },
+];
 
-interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
-
-const footerSections: FooterSection[] = [
+const socialLinks = [
   {
-    title: "Product",
-    links: [
-      { name: "Features", href: "#features" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "Documentation", href: "#docs" },
-      { name: "API", href: "#api" }
-    ]
+    name: '哔哩哔哩',
+    href: 'https://space.bilibili.com/3493146396724152',
+    path: 'M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.249-.56.373-.933.373-.373 0-.684-.124-.933-.373-.25-.249-.383-.569-.4-.96V12.44c0-.391.142-.711.426-.96.285-.249.596-.373.907-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.249-.56.373-.933.373-.373 0-.684-.124-.933-.373-.25-.249-.383-.569-.4-.96V12.44c0-.391.142-.711.426-.96.285-.249.596-.373.907-.373z',
   },
   {
-    title: "Company",
-    links: [
-      { name: "About", href: "#about" },
-      { name: "Blog", href: "#blog" },
-      { name: "Careers", href: "#careers" },
-      { name: "Contact", href: "#contact" }
-    ]
+    name: '邮箱',
+    href: 'mailto:bber_cn@qq.com',
+    path: 'M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z',
   },
-  {
-    title: "Resources",
-    links: [
-      { name: "Templates", href: "#templates" },
-      { name: "Tutorials", href: "#tutorials" },
-      { name: "Community", href: "#community" },
-      { name: "Support", href: "#support" }
-    ]
-  },
-  {
-    title: "Legal",
-    links: [
-      { name: "Privacy", href: "#privacy" },
-      { name: "Terms", href: "#terms" },
-      { name: "Security", href: "#security" },
-      { name: "Status", href: "#status" }
-    ]
-  }
 ];
 ---
 
-<footer class="bg-gray-900 text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Main Footer Content -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-      <!-- Brand Section -->
+<footer class="mt-auto bg-slate-900 text-slate-300 dark:bg-black">
+  <div class="container-blog py-12">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      <!-- 品牌 -->
       <div class="lg:col-span-2">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="w-8 h-8 bg-gradient-to-r from-primary-500 to-blue-500 rounded-lg"></div>
-          <span class="text-xl font-bold">ESA Pages</span>
-        </div>
-        <p class="text-gray-400 mb-6">
-          The fastest way to deploy and host your static websites with automatic builds, 
-          global CDN, and seamless Git integration.
+        <a href="/" class="flex items-center space-x-2">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-violet-500 text-sm font-bold text-white">
+            {SITE.name.slice(0, 1)}
+          </span>
+          <span class="text-lg font-bold text-white">{SITE.name}</span>
+        </a>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
+          {SITE.description} 在这里记录技术、生活与思考，分享值得沉淀的内容。
         </p>
-        <div class="flex space-x-4">
-          <!-- Social Links -->
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
-            <span class="sr-only">Twitter</span>
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-            </svg>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
-            <span class="sr-only">GitHub</span>
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
-            </svg>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
-            <span class="sr-only">LinkedIn</span>
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z" clip-rule="evenodd"></path>
-            </svg>
-          </a>
+        <div class="mt-6 flex space-x-4">
+          {
+            socialLinks.map((s) => (
+              <a
+                href={s.href}
+                target={s.href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener"
+                class="text-slate-400 transition-colors duration-200 hover:text-white"
+                aria-label={s.name}
+              >
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d={s.path} />
+                </svg>
+              </a>
+            ))
+          }
         </div>
       </div>
 
-      <!-- Footer Links -->
-      {footerSections.map((section) => (
-        <div>
-          <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-            {section.title}
-          </h3>
-          <ul class="space-y-2">
-            {section.links.map((link) => (
+      <!-- 导航 -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">导航</h3>
+        <ul class="mt-4 space-y-2">
+          {
+            navLinks.map((link) => (
               <li>
-                <a 
-                  href={link.href} 
-                  class="text-gray-400 hover:text-white transition-colors duration-200"
-                >
+                <a href={link.href} class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">
                   {link.name}
                 </a>
               </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- 分类 -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">分类</h3>
+        <ul class="mt-4 space-y-2">
+          {
+            categories.map((cat) => (
+              <li>
+                <a
+                  href={`/category/${encodeURIComponent(cat.name)}`}
+                  class="text-sm text-slate-400 transition-colors duration-200 hover:text-white"
+                >
+                  {cat.name} <span class="text-slate-500">({cat.count})</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- 关于 -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">关于</h3>
+        <ul class="mt-4 space-y-2">
+          <li><a href="/about" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">关于本站</a></li>
+          <li><a href="/rss.xml" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">RSS 订阅</a></li>
+          <li><a href="mailto:bber_cn@qq.com" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">联系我</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="mt-12 pt-8 border-t border-gray-800">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <p class="text-gray-400 text-sm">
-          © {currentYear} ESA Pages. All rights reserved.
+    <!-- 底部信息条 -->
+    <div class="mt-12 border-t border-white/10 pt-8">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-sm text-slate-400">
+          © {currentYear} {SITE.name}. 保留所有权利。
         </p>
-        <div class="flex items-center space-x-6 mt-4 md:mt-0">
-          <span class="text-gray-400 text-sm flex items-center">
-            <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-            All systems operational
-          </span>
+        <div class="flex flex-col items-center gap-2 sm:flex-row sm:gap-6">
+          <a
+            href={BEIAN.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-slate-400 transition-colors duration-200 hover:text-white"
+          >
+            {BEIAN.number}
+          </a>
         </div>
       </div>
     </div>

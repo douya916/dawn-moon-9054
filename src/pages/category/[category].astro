@@ -1,0 +1,45 @@
+---
+import { getPosts } from '@/lib/blog';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import type { Post } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const categories = [...new Set(posts.map((p) => p.data.category))];
+  return categories.map((category) => ({
+    params: { category },
+    props: {
+      category,
+      posts: posts.filter((p) => p.data.category === category),
+    },
+  }));
+}
+
+interface Props {
+  category: string;
+  posts: Post[];
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout title={`${category} 分类`} description={`${category} 分类下的所有文章。`}>
+  <Header />
+
+  <main class="container-blog py-12">
+    <div class="mb-10">
+      <a href="/" class="text-sm text-slate-500 transition-colors hover:text-primary-600">← 返回首页</a>
+      <h1 class="mt-4 section-title">{category}</h1>
+      <p class="mt-2 text-slate-500">共 {posts.length} 篇文章</p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

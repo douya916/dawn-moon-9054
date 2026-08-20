@@ -1,0 +1,58 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { getDocs } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const docs = await getDocs();
+  return docs.map((doc, i) => ({
+    params: { slug: doc.slug },
+    props: { doc, prev: docs[i - 1] ?? null, next: docs[i + 1] ?? null },
+  }));
+}
+
+const { doc, prev, next } = Astro.props;
+const { Content } = await doc.render();
+const { title, description, order } = doc.data;
+---
+
+<DocsLayout title={title} description={description} current={doc.slug}>
+  <article class="prose prose-slate max-w-none prose-img:rounded-xl dark:prose-invert">
+    <p class="text-sm uppercase tracking-wider text-slate-400">第 {order} 章</p>
+    <h1>{title}</h1>
+    <Content />
+  </article>
+
+  <!-- 上一章 / 下一章 -->
+  <nav class="mt-12 grid gap-4 border-t border-slate-200 pt-8 dark:border-white/10 sm:grid-cols-2">
+    {
+      prev ? (
+        <a
+          href={`/docs/${prev.slug}`}
+          class="group rounded-xl border border-slate-200 p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/50 dark:border-white/10 dark:hover:border-primary-500/40 dark:hover:bg-white/5"
+        >
+          <span class="text-xs text-slate-400">← 上一章</span>
+          <div class="mt-1 font-medium text-slate-800 group-hover:text-primary-600 dark:text-slate-200 dark:group-hover:text-primary-400">
+            {prev.data.title}
+          </div>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    {
+      next ? (
+        <a
+          href={`/docs/${next.slug}`}
+          class="group rounded-xl border border-slate-200 p-4 text-right transition-colors hover:border-primary-300 hover:bg-primary-50/50 dark:border-white/10 dark:hover:border-primary-500/40 dark:hover:bg-white/5"
+        >
+          <span class="text-xs text-slate-400">下一章 →</span>
+          <div class="mt-1 font-medium text-slate-800 group-hover:text-primary-600 dark:text-slate-200 dark:group-hover:text-primary-400">
+            {next.data.title}
+          </div>
+        </a>
+      ) : (
+        <span />
+      )
+    }
+  </nav>
+</DocsLayout>

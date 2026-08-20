@@ -1,0 +1,62 @@
+---
+interface FriendLink {
+  name: string;
+  href: string;
+  description: string;
+  icon?: string;
+}
+
+// 友链，按需替换为你自己的友链
+const friends: FriendLink[] = [
+  {
+    name: '柠檬星',
+    href: 'https://blog.lemonstar.me',
+    description: '天空就是一杯橘子味的柠檬汽水',
+    icon: 'https://blog.lemonstar.me/img/site-icon-lemon.png',
+  },
+  {
+    name: '如形の博客',
+    href: 'https://blog.rusin7.com',
+    description: '亲身体验，终生实践。',
+    icon: 'https://blog.rusin7.com/_astro/avatar.d5a-LzVb_1hx9ED.webp',
+  },
+  {
+    name: '蜜芽设计',
+    href: 'https://www.miyaui.com/',
+    description: '优质平面设计资源素材免费下载',
+    icon: 'https://www.miyaui.com/wp-content/uploads/2025/02/cropped-2025022001465061-1-192x192.png',
+  },
+];
+---
+
+<div class="grid gap-5 sm:grid-cols-2">
+  {
+    friends.map((f) => (
+      <a
+        href={f.href}
+        target="_blank"
+        rel="noopener"
+        class="card card-hover group flex items-start gap-4 p-5"
+      >
+        {f.icon ? (
+          <img
+            src={f.icon}
+            alt={f.name}
+            loading="lazy"
+            class="h-11 w-11 shrink-0 rounded-xl object-cover ring-1 ring-slate-200 dark:ring-white/10"
+          />
+        ) : (
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-base font-bold text-primary-600 transition-colors group-hover:bg-primary-600 group-hover:text-white dark:bg-white/10 dark:text-primary-400">
+            {f.name.slice(0, 1)}
+          </span>
+        )}
+        <span class="min-w-0">
+          <span class="block text-base font-semibold text-slate-900 transition-colors group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400">
+            {f.name}
+          </span>
+          <span class="mt-1 block text-sm leading-relaxed text-slate-500">{f.description}</span>
+        </span>
+      </a>
+    ))
+  }
+</div>
