@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import SiteHero from '@/components/SiteHero.astro';
+import FriendLinks from '@/components/FriendLinks.astro';
+import Subscribe from '@/components/Subscribe.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import Sidebar from '@/components/Sidebar.astro';
+import { getCategories, getDocs } from '@/lib/blog';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection('blog'))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return paginate(posts, { pageSize: 6 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const categories = await getCategories();
+const docs = await getDocs();
+const recentPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
+---
+
+<BaseLayout>
+  <Header />
+  <SiteHero />
+
+  <main class="container-blog py-12 sm:py-16">
+    <!-- 教程文档入口 -->
+    <a
+      href="/docs"
+      class="group mb-12 flex flex-col items-start gap-4 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 p-6 text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:flex-row sm:items-center sm:justify-between sm:p-8 dark:from-gray-800 dark:to-gray-900"
+    >
+      <div>
+        <div class="flex items-center gap-2 text-sm text-primary-300">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          教程文档
+        </div>
+        <h2 class="mt-2 text-xl font-bold sm:text-2xl">瓜奇搭建教程（共 {docs.length} 章）</h2>
+        <p class="mt-1 text-sm text-slate-300">从软件准备到本地测试，手把手带你部署瓜奇。</p>
+      </div>
+      <span class="inline-flex shrink-0 items-center gap-1 rounded-xl bg-white/10 px-5 py-3 text-sm font-medium ring-1 ring-white/20 transition-colors group-hover:bg-white/20">
+        开始阅读 →
+      </span>
+    </a>
+
+    <div class="grid gap-10 lg:grid-cols-[1fr_320px]">
+      <!-- 主内容区 -->
+      <div class="space-y-16">
+        <!-- 最新文章 -->
+        <section id="articles">
+          <div class="mb-8 flex items-end justify-between">
+            <h2 class="section-title">最新文章</h2>
+            <span class="text-sm text-slate-400">共 {page.total} 篇</span>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2">
+            {page.data.map((post) => <ArticleCard post={post} />)}
+          </div>
+
+          <!-- 分页 -->
+          {
+            page.lastPage > 1 && (
+              <nav class="mt-10 flex items-center justify-center gap-3" aria-label="分页导航">
+                {page.url.prev ? (
+                  <a
+                    href={page.url.prev}
+                    class="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition-colors hover:border-primary-300 hover:text-primary-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-primary-400 dark:hover:text-primary-400"
+                  >
+                    ← 上一页
+                  </a>
+                ) : (
+                  <span class="inline-flex cursor-not-allowed items-center gap-1 rounded-xl border border-slate-100 px-4 py-2 text-sm font-medium text-slate-300 dark:border-white/5 dark:text-slate-600">
+                    ← 上一页
+                  </span>
+                )}
+
+                <span class="text-sm text-slate-500">
+                  第 <span class="font-semibold text-slate-700 dark:text-slate-200">{page.currentPage}</span> / {page.lastPage} 页
+                </span>
+
+                {page.url.next ? (
+                  <a
+                    href={page.url.next}
+                    class="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition-colors hover:border-primary-300 hover:text-primary-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-primary-400 dark:hover:text-primary-400"
+                  >
+                    下一页 →
+                  </a>
+                ) : (
+                  <span class="inline-flex cursor-not-allowed items-center gap-1 rounded-xl border border-slate-100 px-4 py-2 text-sm font-medium text-slate-300 dark:border-white/5 dark:text-slate-600">
+                    下一页 →
+                  </span>
+                )}
+              </nav>
+            )
+          }
+        </section>
+
+        <!-- 友情链接 -->
+        <section id="friends">
+          <h2 class="section-title mb-8">友情链接</h2>
+          <FriendLinks />
+        </section>
+
+        <!-- 订阅 -->
+        <section id="subscribe">
+          <Subscribe />
+        </section>
+      </div>
+
+      <!-- 侧边栏 -->
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <Sidebar categories={categories} recentPosts={recentPosts} />
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
