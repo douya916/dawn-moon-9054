@@ -9,9 +9,9 @@ import FriendLinks from '@/components/FriendLinks.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import ArticleCard from '@/components/ArticleCard.astro';
 import Sidebar from '@/components/Sidebar.astro';
-import { getCategories, getDocs, DIY_SHOW_FRIEND_LINKS } from '@/lib/blog';
+import { getCategories, getDocs, DIY_SHOW_FRIEND_LINKS, DIY_SHOW_SUBSCRIBE } from '@/lib/blog';
 
-// diy: 友链区由 DIY_SHOW_FRIEND_LINKS 开关控制（备案期间隐藏）
+// diy: 友链区由 DIY_SHOW_FRIEND_LINKS 开关控制，底部订阅卡片由 DIY_SHOW_SUBSCRIBE 开关控制（备案期间隐藏）
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('blog'))
@@ -112,10 +112,13 @@ const recentPosts = (await getCollection('blog'))
           )
         }
 
-        <!-- 订阅 -->
-        <section id="subscribe">
-          <Subscribe />
-        </section>
+        {
+          DIY_SHOW_SUBSCRIBE && (
+            <section id="subscribe">
+              <Subscribe />
+            </section>
+          )
+        }
       </div>
 
       <!-- 侧边栏 -->

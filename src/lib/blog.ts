@@ -20,6 +20,7 @@ export const BEIAN = {
 /** diy: 备案期间显示开关 —— 备案通过后把对应项改回 true 即可恢复 */
 export const DIY_SHOW_FRIEND_LINKS: boolean = false; // 首页友链区 + 顶部/底部「友链」导航入口
 export const DIY_SHOW_SIDEBAR_NOTICE: boolean = false; // 侧栏「公告」卡片
+export const DIY_SHOW_SUBSCRIBE: boolean = false; // 首页底部订阅卡片 + 页脚「RSS 订阅」入口
 
 /** 分类对应的渐变色（用于卡片封面） */
 const CATEGORY_GRADIENTS: Record<string, string> = {

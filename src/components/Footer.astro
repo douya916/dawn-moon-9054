@@ -1,5 +1,5 @@
 ---
-import { SITE, BEIAN, getCategories, DIY_SHOW_FRIEND_LINKS } from '@/lib/blog';
+import { SITE, BEIAN, getCategories, DIY_SHOW_FRIEND_LINKS, DIY_SHOW_SUBSCRIBE } from '@/lib/blog';
 
 const currentYear = new Date().getFullYear();
 const categories = await getCategories();
@@ -72,7 +72,11 @@ const navLinks = [
         <h3 class="text-sm font-semibold uppercase tracking-wider text-white">关于</h3>
         <ul class="mt-4 space-y-2">
           <li><a href="/about" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">关于本站</a></li>
-          <li><a href="/rss.xml" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">RSS 订阅</a></li>
+          {
+            DIY_SHOW_SUBSCRIBE && (
+              <li><a href="/rss.xml" class="text-sm text-slate-400 transition-colors duration-200 hover:text-white">RSS 订阅</a></li>
+            )
+          }
         </ul>
       </div>
     </div>
