@@ -4,6 +4,8 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import { SITE } from '@/lib/blog';
 
+// diy: 备案期间移除「想和我聊聊？」联系区块（含发送邮件按钮），正文不再提邮件 / B 站
+
 const skills = ['前端开发', 'TypeScript', 'Astro / Nuxt', 'UI 设计', '摄影', '手冲咖啡'];
 const timeline = [
   { year: '2019', text: '购买人生第一款主题 B2，从此一发不可收拾，正式踏上网站美化折腾之路。' },
@@ -44,7 +46,7 @@ const timeline = [
         </p>
         <p>
           这个博客是我分享折腾成果的地方——既有主题定制与界面美化的实战笔记，也有折腾路上的踩坑与心得。
-          如果你也对「把网站弄得更好看」这件事感兴趣，欢迎通过邮件或 B 站和我交流。
+          如果你也对「把网站弄得更好看」这件事感兴趣，这里会持续记录我在主题定制与界面美化上的折腾过程。
         </p>
       </div>
 
@@ -73,13 +75,6 @@ const timeline = [
           ))
         }
       </ul>
-
-      <!-- 联系 -->
-      <div class="mt-12 rounded-2xl bg-slate-100 p-6 text-center dark:bg-white/5">
-        <h2 class="section-title text-xl">想和我聊聊？</h2>
-        <p class="mt-2 text-slate-500">无论是技术交流，还是单纯打个招呼，都欢迎来信。</p>
-        <a href="mailto:bber_cn@qq.com" class="btn-primary mt-4 px-6 py-3">发送邮件</a>
-      </div>
     </div>
   </main>
 

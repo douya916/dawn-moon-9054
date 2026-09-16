@@ -9,7 +9,9 @@ import FriendLinks from '@/components/FriendLinks.astro';
 import Subscribe from '@/components/Subscribe.astro';
 import ArticleCard from '@/components/ArticleCard.astro';
 import Sidebar from '@/components/Sidebar.astro';
-import { getCategories, getDocs } from '@/lib/blog';
+import { getCategories, getDocs, DIY_SHOW_FRIEND_LINKS } from '@/lib/blog';
+
+// diy: 友链区由 DIY_SHOW_FRIEND_LINKS 开关控制（备案期间隐藏）
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('blog'))
@@ -101,11 +103,14 @@ const recentPosts = (await getCollection('blog'))
           }
         </section>
 
-        <!-- 友情链接 -->
-        <section id="friends">
-          <h2 class="section-title mb-8">友情链接</h2>
-          <FriendLinks />
-        </section>
+        {
+          DIY_SHOW_FRIEND_LINKS && (
+            <section id="friends">
+              <h2 class="section-title mb-8">友情链接</h2>
+              <FriendLinks />
+            </section>
+          )
+        }
 
         <!-- 订阅 -->
         <section id="subscribe">
