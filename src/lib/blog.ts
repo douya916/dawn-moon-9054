@@ -21,6 +21,9 @@ export const BEIAN = {
 export const DIY_SHOW_FRIEND_LINKS: boolean = false; // 首页友链区 + 顶部/底部「友链」导航入口
 export const DIY_SHOW_SIDEBAR_NOTICE: boolean = false; // 侧栏「公告」卡片
 export const DIY_SHOW_SUBSCRIBE: boolean = false; // 首页底部订阅卡片 + 页脚「RSS 订阅」入口
+export const DIY_SHOW_DOCS: boolean = false; // 首页「教程文档」入口卡片 + 顶部/底部「文档」导航项
+// diy: 注意 /docs 的 13 个页面（索引 + 12 章）已整体移到 src/_disabled-pages/docs 停用。
+//      恢复时把该目录移回 src/pages/docs，并把上面 DIY_SHOW_DOCS 改为 true。
 
 /** 分类对应的渐变色（用于卡片封面） */
 const CATEGORY_GRADIENTS: Record<string, string> = {
