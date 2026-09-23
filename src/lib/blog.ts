@@ -5,7 +5,8 @@ export type Post = CollectionEntry<'blog'>;
 /** 站点基本信息（按需修改） */
 export const SITE = {
   name: '哔哔一二',
-  description: '一个关于技术、生活与思考的个人博客。',
+  // diy: 备案合规，站点自述措辞调整
+  description: '一个关于技术、生活与思考的个人站点。',
   author: '大可',
   url: 'https://bber.cn',
 };
